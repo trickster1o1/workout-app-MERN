@@ -74,11 +74,19 @@ label, input {
 input {
   padding: 10px;
   margin-top: 10px;
-  margin-bottom: 20px;
   width: 100%;
   border: 1px solid #ddd;
+  margin-bottom: 10px;
   border-radius: 4px;
   box-sizing: border-box;
+} input.error {
+  border: 1px solid var(--error);
+} form span.error {
+  color: var(--error);
+  display: block;
+  font-weight: 300;
+  margin-bottom: 10px;
+  font-size: 12px;
 }
 form button {
   background: var(--primary);

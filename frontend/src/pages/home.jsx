@@ -15,7 +15,7 @@ export default function Home() {
         }
         getWorkout();
         console.log('working...');
-    }, []);
+    }, [dispatch]);
     return (
         <div className="home">
             <div className="workouts">
