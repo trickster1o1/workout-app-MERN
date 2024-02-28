@@ -10,6 +10,10 @@ const loginUser = async (req, res) => {
 
   try {
     const user = await User.login(email, password);
+
+    if(user.msg && user.msg === 'error') {
+      return res.status(400).json({error: user.message})
+    }
     // create JWT
     const token = createToken(user._id);
     return res.status(200).json({email, token});
@@ -24,6 +28,10 @@ const signupUser = async (req, res) => {
 
   try {
     const user = await User.signup({ email, password });
+
+    if(user.msg && user.msg === 'error') {
+      return res.status(400).json({error: user.message});
+    }
 
     // JWT creation
     const token = createToken(user._id);

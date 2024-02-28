@@ -17,16 +17,19 @@ const userSchema = new Schema({
 // signup function
 userSchema.statics.signup = async function({email, password}){
     if(!email || !password) {
-        throw Error('All filds are required.');
+        return {'msg': 'error', 'message':'All filds are required.'};
+        // throw Error('All filds are required.');
     }
 
     if(!validator.isEmail(email)) {
-        throw Error('Email is not valid!');
+        return {'msg': 'error', 'message':'Email is not valid.'};
+        // throw Error('Email is not valid!');
     } 
 
     const exist = await this.findOne({email});
     if(exist) {
-        throw Error('Email already exists.');
+        return {'msg': 'error', 'message':'This email already exists.'};
+        // throw Error('Email already exists.');
     }
     
     const salt = await bcrypt.genSalt(10);
@@ -39,17 +42,20 @@ userSchema.statics.signup = async function({email, password}){
 
 userSchema.statics.login = async function(email, password) {
     if(!email || !password) {
-        throw Error('All filds are required');
+        return {'msg': 'error', 'message':'All filds are required.'};
+        // throw Error('All filds are required');
     }
 
     const user = await this.findOne({email});
     if(!user) {
-        throw Error('Incorrect Cardantials!');
+        return {'msg': 'error', 'message':'Incorrect Cardantials!.'};
+        // throw Error('Incorrect Cardantials!');
     }
 
     const match = await bcrypt.compare(password, user.password);
     if(!match) {
-        throw Error('Incorrect Cardantials!!!');
+        return {'msg': 'error', 'message':'Incorrect Cardantials!!!.'};
+        // throw Error('Incorrect Cardantials!!!');
     }
     return user;
 }
